@@ -384,8 +384,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
         
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
+        var status = rec.get('status');
+        console.log(status);
         var name = rec.get('stockincode');
-
+    // if (status == '-1'){
         Ext.Msg.show({
             title: 'Thông báo',
             msg: 'Bạn có chắc chắn xóa phiếu nhập "' + name + '" ?',
@@ -403,13 +405,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                     GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_deleteid', Ext.JSON.encode(params),
                     function (success, response, options) {
                         me.setLoading(false);
-                        var response = Ext.decode(response.responseText);
+                        console.log(response);
+                        response=Ext.JSON.decode(response.responseText);
                         if (success) {
                             if (response.respcode == 200) {
                                 grid.getStore().remove(rec);
                                 var StockinD_Store = viewModel.getStore('StockinD_Store');
                                 StockinD_Store.removeAll();
                             }else{
+                                
                                 Ext.Msg.show({
                                     title: 'Thông báo',
                                     msg: response.message,
@@ -433,6 +437,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                 }
             }
         });
+    // }
+    // else if (status == 0 || status == 1){
+    //     Ext.Msg.show({
+    //         title: 'Thông báo',
+    //         msg: "Bạn Không thể xóa phiếu này",
+    //         buttons: Ext.MessageBox.YES,
+    //         buttonText: {
+    //             yes: 'Đóng',
+    //         },
+    //     });
+    // }
     },
 
     // stockin
