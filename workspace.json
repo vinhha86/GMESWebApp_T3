@@ -17,7 +17,12 @@
      * with "sencha workspace install". See "sencha help workspace install" for more information.
      *
      */
-    "frameworks": {        "ext": {
+    "frameworks": {        "ext751": {
+            "path":"ext751",
+            "package":"ext@7.5.1.5",
+            "version":"7.5.1.5"
+        },
+        "ext": {
             "path":"ext",
             "version":"6.7.0.210"
         }

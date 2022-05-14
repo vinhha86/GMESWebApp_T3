@@ -24,6 +24,7 @@ Ext.define('GSmartApp.view.mobilemenu.MobileMenuController', {
     },
     onItemSelect: function(dataview, selected, eOpts){
         var viewId = selected.get('id');
+        console.log(viewId);
         if(viewId != null){
             this.redirectTo(viewId);
         }
