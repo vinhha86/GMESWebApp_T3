@@ -56,6 +56,69 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         '#splbtn_ThemCa': {
             click: 'onThemCaLamViec'
         },
+        '#splbtn_DownloadFileNhanVien': {
+            click: 'onDownloadFileNhanVien'
+        },
+        '#salaryInfoBtn_Download': {
+            click: 'onDownload_TemplateSalary'
+        },
+        '#salaryInfoBtn_Upload': {
+            click: 'onUploadSalary'
+        },
+        '#fileUploadSalary': {
+            change: 'onSelectSalary'
+        },
+    },
+    onDownloadFileNhanVien: function () {
+        var params = new Object();
+        var me = this;
+        var viewmodel = this.getViewModel();
+        params.orgmanagerid_link = viewmodel.get('donvi.id');
+        
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = today.getMonth() + 1; // Months start at 0!
+        var dd = today.getDate();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        today = dd + '/' + mm + '/' + yyyy;
+        var fileName = "BaoCaoNhanSu" + today + ".xlsx";
+        // params.orgmanagerid_link = 8;
+        
+        GSmartApp.Ajax.post('/api/v1/report/NhanSu_Excel', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    console.log('Success');
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray(fileName, response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
     },
     onSelectTangThai:function(){
         var viewmodel = this.getViewModel();
@@ -382,6 +445,11 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         var me = this.getView();
         me.down('#fileUploadBank').fileInputEl.dom.click();
     },
+    onUploadSalary: function () {
+        var viewmodel = this.getViewModel();
+        var me = this.getView();
+        me.down('#fileUploadSalary').fileInputEl.dom.click();
+    },
     onDownload_TemplateBank: function () {
         var me = this;
         var params = new Object();
@@ -391,6 +459,39 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         me.saveByteArray("Template_DSThongTinNganHang.xlsx", response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
+    onDownload_TemplateSalary: function () {
+        var me = this;
+        var params = new Object();
+        GSmartApp.Ajax.post('/api/v1/report/download_temp_personnelSalary', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray("Template_DSThongTinLuong.xlsx" + "", response.data);
                     }
                     else {
                         Ext.Msg.show({
@@ -455,7 +556,46 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                 }
             })
     },
-    
+    onSelectSalary: function (m, value) {
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+
+        var data = new FormData();
+        data.append('file', m.fileInputEl.dom.files[0]);
+        // data.append('orgmanageid_link', viewmodel.get('donvi.id'));
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/upload_personnel/personnelUploadSalary', data, 10 * 60 * 1000,
+            function (success, response, options) {
+                grid.setLoading(false);
+                m.reset();
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Upload Thành Công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                    //load lai ds
+                    var store = viewmodel.getStore('Personnel_Store');
+                    store.load();
+                }
+            })
+    },
     saveByteArray: function (reportName, byte) {
         var me = this;
         byte = this.base64ToArrayBuffer(byte);
