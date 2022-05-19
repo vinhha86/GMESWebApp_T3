@@ -2,6 +2,7 @@ Ext.define('GSmartApp.store.POrder_Grant', {
 	extend: 'Ext.data.Store',
 	storeId: 'POrder_Grant',
 	alias: 'store.POrder_Grant',
+	
 
 	model: 'GSmartApp.model.POrder_Grant',
 	loadKeHoachVaoChuyen: function () {
@@ -132,6 +133,41 @@ Ext.define('GSmartApp.store.POrder_Grant', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl() + '/api/v1/porder_grant/getProcessingByOrgId',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1, {
+			scope: this,
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
+				}
+			}
+		});
+	},
+
+    loadDanhSachLenhKeHoachByDate: function (productid_link,dateSX) {
+		var params = new Object();
+		params.productid_link = productid_link;
+		params.date = dateSX;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/porder_grant/getDanhSachLenhKeHoachByDate',
 			paramsAsJson: true,
 			noCache: false,
 			extraParams: params,

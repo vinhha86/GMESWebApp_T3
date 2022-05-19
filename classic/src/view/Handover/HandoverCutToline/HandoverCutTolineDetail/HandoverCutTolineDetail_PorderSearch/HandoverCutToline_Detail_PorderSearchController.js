@@ -6,9 +6,14 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_PorderSearchControl
         var viewModel = this.getViewModel();
         var viewId = viewModel.get('viewId');
         var pordercode = viewModel.get('pordercode');
-        var granttoorgid_link = viewModel.get('granttoorgid_link');
+        var granttoorgid_link = viewModel.get('granttoorgid_link')
+        // var productid_link = viewModel.get('currentRec.orgid_to_link');
+        // var dateSX = viewModel.get('dateSX');
+        // console.log(dateSX);
+        // console.log(productid_link);
         var POrder_ListStore = viewModel.get('POrder_ListStore');
         // POrder_ListStore.loadStoreByPordercode(pordercode);
+        // POrder_ListStore.loadStoreByPordercode_Async('VCTK 213635-16/07/21_2', 301);
         POrder_ListStore.loadStoreByPordercode_Async(pordercode, granttoorgid_link);
         POrder_ListStore.load({
 			scope: this,
