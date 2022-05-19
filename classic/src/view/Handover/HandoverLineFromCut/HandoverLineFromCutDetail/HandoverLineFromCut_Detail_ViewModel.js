@@ -34,6 +34,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_ViewModel', {
         currentRec: {
             id: null,
             handovertypeid_link: null,
+            handoverProductBuyercode:null,
             handover_code: null,
             handover_date: null,
             handover_userid_link: null,
@@ -46,9 +47,9 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_ViewModel', {
             pordergrantid_link: null,
             status: null,
             handoverProducts: [{
-                
             }]
         },
+        // buyercode:'',
         pordercode: '',
         isCreateNew: false,
         isIn: false, // view nhap
