@@ -4,12 +4,20 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_ViewModel', {
     requires: [
         'GSmartApp.store.UserListStore',
         'GSmartApp.store.org.ListOrgStore',
+        'GSmartApp.store.POrder_Grant',
         'GSmartApp.store.porder.POrder_ListStore',
         'GSmartApp.store.pprocess.POrderGrantStore',
         'GSmartApp.store.handover.HandoverProductStore',
-        'GSmartApp.store.handover.HandoverSkuStore'
+        'GSmartApp.store.handover.HandoverSkuStore',
+        'GSmartApp.store.product.ProductStore'
     ],
     stores: {
+        POrder_Grant: {
+            type: 'POrder_Grant'
+        },
+        ProductStore: {
+            type: 'ProductStore'
+        },
         UserListStore: {
             type: 'userliststore'
         },
@@ -43,13 +51,16 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_ViewModel', {
             reason: null,
             extrainfo: null,
             porderid_link: null,
+            pordercode: null,
             pordergrantid_link: null,
             status: null,
             handoverProducts: [{
                 
             }]
         },
+        productid_link:null,
         pordercode: '',
+        buyercode:'',
         isCreateNew: false,
         isIn: false, // view nhap
         isOut: false, // view xuat
@@ -57,6 +68,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_ViewModel', {
         viewIdParent: '', // id view parent HandoverDetail ex: handover_cut_toline_edit
         viewIdList: '', //  id view list, for btnQuayLai ex: handover_cut_toline
         radioVal: 1,
+        dateSX:''
     },
     formulas: {
         isBtnConfirmOutHidden : function (get) { // Xuat

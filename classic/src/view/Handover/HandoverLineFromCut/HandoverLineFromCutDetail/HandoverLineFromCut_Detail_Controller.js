@@ -363,7 +363,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_Controller', {
                 }
             });
             var record = record[0];
-
+             console.log(record);
             var porderid_link = record.get('id');
             var ordercode = record.get('ordercode');
 
@@ -589,8 +589,9 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_Controller', {
                     var date = Ext.Date.parse(handover_date, 'c');
                     if (null == date) date = new Date(handover_date);
                     viewModel.set('currentRec.handover_date',date);
-                    viewModel.set('pordercode',viewModel.get('currentRec.ordercode'));
+                    viewModel.set('pordercode',viewModel.get('currentRec.ordercode'))
                     // console.log(viewModel.get('currentRec'));
+                    // viewModel.set('handoverProductBuyercode',viewModel.get('current'))
 
                     var viewId = viewModel.get('viewId');
                     // console.log(viewId);
@@ -628,8 +629,8 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_Controller', {
                         if(mainView) mainView.setLoading(false);
                         var response = Ext.decode(response.responseText);
                         if (success) {
-                            console.log(response);
-
+                            // console.log(response);
+                            viewModel.set('currentRec.handoverProductBuyercode',response.data[0].buyercode);
                             // loop set totalpackagecheck = totalpackage
                             var status = viewModel.get('currentRec.status');
                             if(status == 1){

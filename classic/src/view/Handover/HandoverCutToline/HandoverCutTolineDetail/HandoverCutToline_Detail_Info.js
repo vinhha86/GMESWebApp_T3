@@ -95,48 +95,111 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Info', {
             border: false,
             width: '100%',
             items: [
+            
             {
                 layout: 'hbox',
                 border: false,
                 margin: 2,
                 flex : 2,
                 // width: '100%',
-                items: [{
+                items: [
+                    // {
+                    //     xtype:'combobox',
+                    //     itemId:'product-id',
+                    //     bind:{
+                    //         store:'{ProductStore}',
+                    //         // value: '{currentRec.orgid_to_link}',
+                    //         editable: '{isEditable}',
+                    //         readOnly: '{isReadOnly}',
+                    //     },
+                    //     fieldLabel: 'Mã sản phẩm ('+ '<span style="color:red">*</span>' + ')',
+                    //     displayField: 'buyercode',
+                    //     valueField: 'id',
+                    //     queryMode: 'local',
+                    //     anyMatch: true,
+                    //     // editable: false,
+                    //     allowBlank: false,
+                    //     margin: 2,
+                    //     labelWidth: 80,
+                    //     flex: 1,
+                    //     listeners: {
+                    //         select: 'onOrgToComboSelect'
+                    //     }
+                    // },
+                //     {
+                //     xtype: 'textfield',
+                //     fieldLabel: "Mã lệnh",
+                //     // allowBlank: false,
+                //     itemId: 'pordercode',
+                //     blankText: 'Không được để trống',
+                //     bind: {
+                //         value: '{pordercode}'
+                //     },
+                //     labelWidth: 80,
+                //     flex: 1,
+                //     enableKeyEvents : true,
+                //     listeners: {
+                //         keypress: 'onPressEnterPordercode'
+                //     }
+                // },
+                // {
+                //     xtype:'button',
+                //     margin: '0 0 0 2',
+                //     itemId:'btnPlus',
+                //     iconCls: 'x-fa fa-plus',
+                //     bind: {
+                //         visible: '{isCreateNew}'
+                //     }
+                // },{
+                //     xtype:'button',
+                //     margin: '0 0 0 2',
+                //     itemId:'btnSearch',
+                //     iconCls: 'x-fa fa-search',
+                //     bind: {
+                //         visible: '{isCreateNew}'
+                //     }
+                // }
+
+                {
                     xtype: 'textfield',
-                    fieldLabel: "Mã lệnh",
+                    fieldLabel: "Mã SP",
                     // allowBlank: false,
-                    itemId: 'pordercode',
+                    itemId: 'buyercode',
                     blankText: 'Không được để trống',
                     bind: {
-                        value: '{pordercode}'
+                        value: '{buyercode}'
                     },
                     labelWidth: 80,
                     flex: 1,
                     enableKeyEvents : true,
                     listeners: {
-                        keypress: 'onPressEnterPordercode'
+                        keypress: 'onPressEnterBuyercode'
                     }
-                },{
-                    xtype:'button',
-                    margin: '0 0 0 2',
-                    itemId:'btnPlus',
-                    iconCls: 'x-fa fa-plus',
-                    bind: {
-                        visible: '{isCreateNew}'
-                    }
-                },{
+                }
+                // ,{
+                //     xtype:'button',
+                //     margin: '0 0 0 2',
+                //     itemId:'btnPlus',
+                //     iconCls: 'x-fa fa-plus',
+                //     bind: {
+                //         visible: '{isCreateNew}'
+                //     }
+                // }
+                ,{
                     xtype:'button',
                     margin: '0 0 0 2',
                     itemId:'btnSearch',
                     iconCls: 'x-fa fa-search',
                     bind: {
                         visible: '{isCreateNew}'
-                    }
-                }],
+                    } 
+                }
+            ],
                 bind: {
                     hidden: '{isPorderCodeFieldHidden}'
                 }
             },
+            
             {
                 xtype:'combobox',
                 itemId:'orgid_to_link',
