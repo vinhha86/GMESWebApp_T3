@@ -20,6 +20,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
             } 
         }
     },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
     // features: [{
     //     ftype: 'summary',
     //     groupHeaderTpl: 'Tổng',
@@ -72,6 +76,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
         }
     },{
         text: 'SL tách',
+        // dataIndex: 'amount_break',
         dataIndex: 'amount_break',
         editor: {
             completeOnEnter: true,
@@ -84,6 +89,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
         summaryRenderer: 'renderSum',
         flex: 1,
         align: 'end',
+        // bind: {
+        //     value: '{amount_break_edit}',
+        // },
         renderer: function(value, metaData, record, rowIdx, colIdx, store){
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
@@ -96,6 +104,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
             text: 'Thoát',
             itemId: 'btnThoat',
             iconCls: 'x-fa fa-window-close',
+            margin: 5
+        },{
+            xtype: 'button',
+            text: 'Tách',
+            itemId: 'btnTach',
+            iconCls: 'x-fa fa-arrows-h',
             margin: 5
         },{
             xtype:'button',
@@ -116,10 +130,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
             fieldLabel: 'Số lượng tách',
             maskRe: /[0-9]/,
             vtype: 'dollar',
-            itemId: 'amount',
+            itemId: 'sum_amount_break',
             margin: 1,
             bind: {
-                value: '{amount}',
+                value: '{sum_amount_break}',
                 readOnly: '{ishidden}'
             }
         }]
