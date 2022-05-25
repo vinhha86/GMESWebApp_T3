@@ -120,6 +120,8 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.ProductSewingCost_DetailVie
         params.data = objList;
         params.productid_link = productid_link;
         params.pcontractid_link = pcontractid_link;
+        obj.code = obj.name;
+        
 
         me.setLoading(true);
         GSmartApp.Ajax.post('/api/v1/productsewingcost/create', Ext.JSON.encode(params),

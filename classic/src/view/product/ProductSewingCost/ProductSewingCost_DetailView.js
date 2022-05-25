@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.ProductSewingCost_DetailVie
         labelWidth: 120,
         margin: 3,
         fieldLabel: 'Mã công đoạn (' + '<span style="color:red">*</span>' + ')',
-        allowBlank: false,
+        // allowBlank: false,
         // blankText: 'Tên công đoạn',
         maxLength: 50,
         maxLengthText: 'Tối đa 50 ký tự',
@@ -38,6 +38,7 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.ProductSewingCost_DetailVie
         bind: {
             value: '{obj.code}'
         },
+        hidden: true,
     },
     {
         xtype: 'combobox',
