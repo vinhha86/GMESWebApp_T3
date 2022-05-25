@@ -152,6 +152,15 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.ProductSewingCost_DetailVie
                                 }
                             }
                         });
+                    } else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
                     }
                 } else {
                     Ext.Msg.show({

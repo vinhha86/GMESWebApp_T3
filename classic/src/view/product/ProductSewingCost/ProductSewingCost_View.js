@@ -275,6 +275,41 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.ProductSewingCost_View', {
                 valueField: 'productid_link',
                 displayField: 'productBuyerCode'
             },
+            {
+                xtype: 'filefield',
+                buttonOnly: true,
+                hidden: true,
+                itemId: 'fileUpload',
+                width: 35,
+                height: 32,
+                margin: 3
+            },
+            {
+                xtype: 'button',
+                margin: 3,
+                text: 'Upload',
+                // iconCls: 'x-fa fa-bars',
+                menu: [
+                    {
+                        itemId: 'btn_Upload',
+                        text: 'Upload file Công đoạn và Cụm công đoạn',
+                        iconCls: 'x-fa fa-upload',
+                    }
+                ],
+            },
+            {
+                xtype: 'button',
+                margin: 3,
+                text: 'Download',
+                // iconCls: 'x-fa fa-bars',
+                menu: [
+                    {
+                        itemId: 'ProductSewingCostInfoBtn_Download',
+                        text: 'Download template Công đoạn và Cụm công đoạn',
+                        iconCls: 'x-fa fa-download',
+                    }
+                ],
+            },
             // {
             //     xtype: 'button',
             //     tooltip: 'Tải file mẫu (quy trình công nghệ tiêu chuẩn)',
