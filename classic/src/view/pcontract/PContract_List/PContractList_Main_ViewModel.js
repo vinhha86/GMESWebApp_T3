@@ -37,7 +37,10 @@ Ext.define('GSmartApp.view.pcontract.PContractList_Main_ViewModel', {
             orgvendorid_link: 0,
             contractbuyer_code: '',
             contractbuyer_yearfrom: (new Date()).getFullYear() - 1,
-            contractbuyer_yearto: (new Date()).getFullYear() + 1
+            contractbuyer_yearto: (new Date()).getFullYear() + 1,
+            month_year:'',
+            firstday_month:'',
+            lastday_mont:'',
         },
         pcontractid_link: 0,
         IsformMaster:false,

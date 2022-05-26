@@ -279,43 +279,71 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             },
 			enableKeyEvents : true,
         },
-        {
-            xtype: 'textfield',
-            // fieldLabel: 'Tháng',
-            emptyText: "Tháng giao hàng",
-            margin: '5 1 5 0',
-            maskRe: /[0-9]/,
-            maxLength: 2,
-            itemId: 'month',
-            bind: {
-                value: '{value.month}'
-            },
-            enableKeyEvents : true,
-            labelWidth: 50,
-            width: 120
-        },
-        {
-            xtype: 'textfield',
-            // fieldLabel: 'Năm',
-            emptyText: "Năm giao hàng",
-            margin: '5 1 5 0',
-            maskRe: /[0-9]/,
-            maxLength: 4,
-            itemId: 'year',
-            bind: {
-                value: '{value.year}'
-            },
-            enableKeyEvents : true,
-            labelWidth: 50,
-            width: 120
-        },
+        // {
+        //     xtype: 'textfield',
+        //     // fieldLabel: 'Tháng',
+        //     emptyText: "Tháng giao hàng",
+        //     margin: '5 1 5 0',
+        //     maskRe: /[0-9]/,
+        //     maxLength: 2,
+        //     itemId: 'month',
+        //     bind: {
+        //         value: '{value.month}'
+        //     },
+        //     enableKeyEvents : true,
+        //     labelWidth: 50,
+        //     width: 120
+        // },
+        // {
+        //     xtype: 'textfield',
+        //     // fieldLabel: 'Năm',
+        //     emptyText: "Năm giao hàng",
+        //     margin: '5 1 5 0',
+        //     maskRe: /[0-9]/,
+        //     maxLength: 4,
+        //     itemId: 'year',
+        //     bind: {
+        //         value: '{value.year}'
+        //     },
+        //     enableKeyEvents : true,
+        //     labelWidth: 50,
+        //     width: 120
+        // },
         {
             xtype: 'button',
             margin: '5 1 5 1',
             // text: 'Tìm kiếm',
             iconCls: 'x-fa fa-search',
             itemId: 'btnTimKiem'
-        }]
+        },
+        '->',
+        {
+            xtype: 'textfield',
+            // fieldLabel: 'Năm',
+            emptyText: "Month/Year (mm/YYYY)",
+            margin: '5 1 5 0',
+            maskRe: /[0-9/]/,
+            // [0-9]{3}\.[0-9]{3}$
+            maxLength: 7,
+            itemId: 'month_year_shipdate',
+            bind: {
+                value: '{value.month_year}'
+            },
+            // format: 'm/Y',
+            // enableKeyEvents : true,
+            labelWidth: 50,
+            width: 180,
+			enableKeyEvents : true,
+        },
+        {
+            xtype: 'button',
+            margin: '5 1 5 1',
+            // text: 'Tìm kiếm',
+            iconCls: 'x-fa fa-search',
+            itemId: 'btnTimKiem2',
+        },
+
+    ]
     },
     ]
 });
