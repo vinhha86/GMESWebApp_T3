@@ -27,6 +27,9 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         // '#orgvendorid_link': {
         //     select: 'onloadPage'
         // },
+        '#btnTimKiem2': {
+            click: 'onShow'
+        },
         '#btnTimKiem': {
             click: 'onloadPage'
         },
@@ -63,6 +66,9 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         },
         '#year': {
             keypress: 'onPressEnterSearch',
+        },
+        '#month_year_shipdate': {
+            keypress: 'onPressEnterSearchMonthYear'
         }
     },
     onAfterrender: function () {
@@ -125,11 +131,11 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var contractbuyer_code = me.down('#contractbuyer_code').getValue();
         var contractbuyer_yearfrom = me.down('#contractbuyer_yearfrom').getValue();
         var contractbuyer_yearto = me.down('#contractbuyer_yearto').getValue();
-        var month = me.down('#month').getValue() == null ? '' : me.down('#month').getValue().trim();
-        var year = me.down('#year').getValue() == null ? '' : me.down('#year').getValue().trim();
+        // var month = me.down('#month').getValue() == null ? '' : me.down('#month').getValue().trim();
+        // var year = me.down('#year').getValue() == null ? '' : me.down('#year').getValue().trim();
 
-        console.log(month);
-        console.log(year);
+        // console.log(month);
+        // console.log(year);
 
         if (productbuyer_code == null) {
             productbuyer_code = "";
@@ -161,66 +167,66 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
 
         var firstday_month = "";
         var lastday_month = "";
-        if ((month != "" && year!="")) {
-            if (month <= 12 && month >= 0){
-                if(month == 1 || month ==3 || month ==5 || month ==7 || month ==9 || month ==11){
-                    firstday_month = year+"-"+month + "-" + "1";
-                    lastday_month = year+"-"+month + "-" + "31";   
-                }
-                else if(month == 4 || month ==6 || month ==8 || month ==10 || month ==12 ){
-                    firstday_month = year+"-"+month + "-" + "1";
-                    lastday_month = year+"-"+month + "-" + "30";  
-                }
-                else if(month == 2 && year%4==0 ) {
-                    firstday_month = year+"-"+month + "-" + "1";
-                    lastday_month = year+"-"+month + "-" + "29"; 
-                }
-                else {
-                    firstday_month = year+"-"+month + "-" + "1";
-                    lastday_month = year+"-"+month + "-" + "28"; 
-                }
-            }
-            else {
-                Ext.MessageBox.show({
-                title: "Thông báo",
-                msg: 'Vui lòng nhập tháng từ 1 đến 12',
-                buttons: Ext.MessageBox.YES,
-                buttonText: {
-                    yes: 'Đóng',
-                }
-                });
-                firstday_month = "";
-                lastday_month = "";
-            }
-        }
-        else if (month == "" && year != ""){
-            // Ext.MessageBox.show({
-            //     title: "Thông báo",
-            //     msg: 'Vui lòng nhập tháng để tìm kiếm',
-            //     buttons: Ext.MessageBox.YES,
-            //     buttonText: {
-            //         yes: 'Đóng',
-            //     }
-            // });
-            firstday_month = "";
-            lastday_month = "";
-        }
-        else if (month != "" && year == ""){
-            // Ext.MessageBox.show({
-            //     title: "Thông báo",
-            //     msg: 'Vui lòng nhập năm để tìm kiếm',
-            //     buttons: Ext.MessageBox.YES,
-            //     buttonText: {
-            //         yes: 'Đóng',
-            //     }
-            // });
-            firstday_month = "";
-            lastday_month = "";
-        }
-        else {
-            firstday_month = "";
-            lastday_month = "";
-        }
+        // if ((month != "" && year!="")) {
+        //     if (month <= 12 && month >= 0){
+        //         if(month == 1 || month ==3 || month ==5 || month ==7 || month ==9 || month ==11){
+        //             firstday_month = year+"-"+month + "-" + "1";
+        //             lastday_month = year+"-"+month + "-" + "31";   
+        //         }
+        //         else if(month == 4 || month ==6 || month ==8 || month ==10 || month ==12 ){
+        //             firstday_month = year+"-"+month + "-" + "1";
+        //             lastday_month = year+"-"+month + "-" + "30";  
+        //         }
+        //         else if(month == 2 && year%4==0 ) {
+        //             firstday_month = year+"-"+month + "-" + "1";
+        //             lastday_month = year+"-"+month + "-" + "29"; 
+        //         }
+        //         else {
+        //             firstday_month = year+"-"+month + "-" + "1";
+        //             lastday_month = year+"-"+month + "-" + "28"; 
+        //         }
+        //     }
+        //     else {
+        //         Ext.MessageBox.show({
+        //         title: "Thông báo",
+        //         msg: 'Vui lòng nhập tháng từ 1 đến 12',
+        //         buttons: Ext.MessageBox.YES,
+        //         buttonText: {
+        //             yes: 'Đóng',
+        //         }
+        //         });
+        //         firstday_month = "";
+        //         lastday_month = "";
+        //     }
+        // }
+        // else if (month == "" && year != ""){
+        //     // Ext.MessageBox.show({
+        //     //     title: "Thông báo",
+        //     //     msg: 'Vui lòng nhập tháng để tìm kiếm',
+        //     //     buttons: Ext.MessageBox.YES,
+        //     //     buttonText: {
+        //     //         yes: 'Đóng',
+        //     //     }
+        //     // });
+        //     firstday_month = "";
+        //     lastday_month = "";
+        // }
+        // else if (month != "" && year == ""){
+        //     // Ext.MessageBox.show({
+        //     //     title: "Thông báo",
+        //     //     msg: 'Vui lòng nhập năm để tìm kiếm',
+        //     //     buttons: Ext.MessageBox.YES,
+        //     //     buttonText: {
+        //     //         yes: 'Đóng',
+        //     //     }
+        //     // });
+        //     firstday_month = "";
+        //     lastday_month = "";
+        // }
+        // else {
+        //     firstday_month = "";
+        //     lastday_month = "";
+        // }
 
         PContractStore.loadStore(productbuyer_code, po_code, orgbuyerid_link,
             orgvendorid_link, contractbuyer_code,
@@ -681,6 +687,181 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
 		if (e.getKey() == e.ENTER) {
 			// Ext.Msg.alert('Keys','You pressed the Enter key');
 			m.onloadPage();
+		}
+	},
+    onShow: function () {
+        console.log("okeeeeeeee");
+        var m = this;
+        var me = this.getView();
+
+        var viewModel = this.getViewModel();
+        var PContractStore = viewModel.getStore('PContractStore');
+
+        var productbuyer_code = me.down('#productbuyer_code').getValue();
+        var po_code = me.down('#po_code').getValue();
+        var orgbuyerid_link = me.down('#orgbuyerid_link').getValue();
+        var orgvendorid_link = me.down('#orgvendorid_link').getValue();
+        var contractbuyer_code = me.down('#contractbuyer_code').getValue();
+        var contractbuyer_yearfrom = me.down('#contractbuyer_yearfrom').getValue();
+        var contractbuyer_yearto = me.down('#contractbuyer_yearto').getValue();
+        var month_year_shipdate = me.down('#month_year_shipdate').getValue();
+        var checkFormats = m.checkFormats(month_year_shipdate);
+       console.log(checkFormats);
+        if(checkFormats == 1){
+            console.log("null");
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Vui lòng nhập tháng năm (mm/YYYY)",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        else if(checkFormats==2){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Nhập sai định dạng (mm/YYYY)",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+
+    
+       console.log("1111");
+    //    return;
+
+        if (productbuyer_code == null) {
+            productbuyer_code = "";
+        }
+
+        if (po_code == null) {
+            po_code = "";
+        }
+
+        if (orgbuyerid_link == null) {
+            orgbuyerid_link = 0;
+        }
+
+        if (orgvendorid_link == null) {
+            orgvendorid_link = 0;
+        }
+
+        if (contractbuyer_code == null) {
+            contractbuyer_code = "";
+        }
+
+        if (contractbuyer_yearfrom == null) {
+            contractbuyer_yearfrom = "";
+        }
+
+        if (contractbuyer_yearto == null) {
+            contractbuyer_yearto = "";
+        }
+
+        var firstday_month = viewModel.get('value.firstday_month');
+        var lastday_month = viewModel.get('value.lastday_month');
+        console.log(firstday_month);
+        console.log(lastday_month);
+
+        // PContractStore.loadStore(productbuyer_code, po_code, orgbuyerid_link,
+        //     orgvendorid_link, contractbuyer_code,
+        //     contractbuyer_yearfrom, contractbuyer_yearto,
+        //     firstday_month, lastday_month);
+        // var PContractPOList = viewModel.getStore('PContractPOList');
+        // PContractPOList.removeAll();
+        // me.getSelectionModel().deselectAll();
+
+
+        var form = Ext.create('Ext.window.Window', {
+            height: "90%",
+            width: "90%",
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            // title: 'Danh sách sản phẩm',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_POListByMonth_Main',
+                viewModel: {
+                    type: 'PContract_POListByMonth_Main_ViewModel',
+                    data: {
+                        firstday_month: firstday_month,
+                        lastday_month: lastday_month,
+                        // viewId: viewId
+                    }
+                }
+            }]
+        });
+        form.show();
+    },
+    checkFormats: function(month_year_shipdate) {
+        var m = this;
+        var viewModel = this.getViewModel();
+        if(month_year_shipdate == "") {
+            return 1;
+        }
+        var month_year = month_year_shipdate.trim();
+        if(( (month_year.length != 7) && (month_year.length !=5)) || (month_year[2] != "/")) {
+                // console.log("LỖI !!");
+            return 2;
+        }
+        if(month_year.length == 5){
+            var month_year_Array = month_year.split("/");
+            month_year = month_year_Array[0] + '/20' + month_year_Array[1];
+        }
+
+        var e = month_year.split("/");
+        var month = parseInt(e[0], 10);
+        var year = parseInt(e[1], 10);
+        var yearNow = (new Date()).getFullYear();
+        if((month>12) || (month<0) || (year>(yearNow+1)) || (year<(yearNow-2))){
+        // console.log("Lỗi ");
+        return 2;
+        }
+        viewModel.set('value.month_year', month_year);
+        if(month == 1 || month ==3 || month ==5 || month ==7 || month ==9 || month ==11){
+                        firstday_month = year+"-"+month + "-" + "1";
+                        lastday_month = year+"-"+month + "-" + "31";   
+                        viewModel.set('value.firstday_month', firstday_month);
+                        viewModel.set('value.lastday_month', lastday_month);
+                    }
+        else if(month == 4 || month ==6 || month ==8 || month ==10 || month ==12 ){
+                        firstday_month = year+"-"+month + "-" + "1";
+                        lastday_month = year+"-"+month + "-" + "30"; 
+                        viewModel.set('value.firstday_month', firstday_month);
+                        viewModel.set('value.lastday_month', lastday_month);
+                    }
+        else if(month == 2 && year%4==0 ) {
+                        firstday_month = year+"-"+month + "-" + "1";
+                        lastday_month = year+"-"+month + "-" + "29"; 
+                        viewModel.set('value.firstday_month', firstday_month);
+                        viewModel.set('value.lastday_month', lastday_month);
+                    }
+        else {
+                        firstday_month = year+"-"+month + "-" + "1";
+                        lastday_month = year+"-"+month + "-" + "28"; 
+                        viewModel.set('value.firstday_month', firstday_month);
+                        viewModel.set('value.lastday_month', lastday_month);
+                   }
+        return 0;
+        
+    },
+    onPressEnterSearchMonthYear: function (textfield, e, eOpts) {
+		var m = this;
+		if (e.getKey() == e.ENTER) {
+			// Ext.Msg.alert('Keys','You pressed the Enter key');
+			m.onShow();
 		}
 	},
 })
