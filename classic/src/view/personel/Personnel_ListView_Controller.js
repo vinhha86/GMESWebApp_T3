@@ -154,38 +154,40 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,status);
     },
     
-    onPositionFilter: function (cmb, rec, e) {
+    onComboBoxFilter: function (cmb, rec, e) {
         var viewModel = this.getViewModel();
-        var filterValue = rec.get('id');
-        console.log(filterValue);
         var store = viewModel.getStore('Personnel_Store');
-        var filters = store.getFilters();
+        var storeLoaiNV = viewModel.getStore('PersonnelTypeStore');
+        var selectecPositions = viewModel.get('rec.positionid_link');
+        var selectecOrgNames = viewModel.get('rec.orgnameComboValue');
+            store.clearFilter();
+        store.filterBy(function(record, id){
+            // console.log(record);
+             if (selectecPositions.length != 0){
+                if(Ext.Array.indexOf(selectecPositions, record.get("positionid_link")) == -1){
+                    return false;
+                };
+             }
+             if (selectecOrgNames.length !=0){
+                if(Ext.Array.indexOf(selectecOrgNames, record.get("orgid_link")) == -1){
+                    return false;
+                };
+             }
 
-        if (filterValue != null) {
-            this.orgPosition = filters.add({
-                id: 'orgPosition',
-                property: 'positionid_link',
-                value: filterValue,
-                exactMatch: true,
-            });
-        }
-        else if (this.orgPosition) {
-            filters.remove(this.orgPosition);
-            this.orgPosition = null;
-        }
+            return true;
+        });  
     },
     onPositionTriggerClick: function () {
         var viewModel = this.getViewModel();
+        console.log(viewModel);
         var store = viewModel.getStore('Personnel_Store');
         var filters = store.getFilters();
-        if (this.orgPosition != null)
-            filters.remove(this.orgPosition);
-        this.orgPosition = null;
-        viewModel.set('positionid_link', 0);
+        viewModel.set('rec.positionid_link', []);
+        this.onComboBoxFilter();
     },
     onFilterOrgnameFilter: function () {
         var viewModel = this.getViewModel();
-        var filterValue = viewModel.get('orgnameComboValue');
+        var filterValue = viewModel.get('rec.orgnameComboValue');
         console.log(filterValue);
         var store = viewModel.getStore('Personnel_Store');
         var filters = store.getFilters();
@@ -205,8 +207,8 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
     },
     onOrgNameComboValueTriggerClick: function () {
         var viewmodel = this.getViewModel();
-        viewmodel.set('orgnameComboValue', null);
-        this.onFilterOrgnameFilter();
+        viewmodel.set('rec.orgnameComboValue', []);
+        this.onComboBoxFilter();
     },
     onThemCaLamViec: function () {
         var viewModel = this.getViewModel();

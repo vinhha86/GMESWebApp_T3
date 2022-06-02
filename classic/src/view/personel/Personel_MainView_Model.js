@@ -36,7 +36,16 @@ Ext.define('GSmartApp.view.personel.Personel_MainView_Model', {
         donvi: {
             id: null
         },
-        orgnameComboValue: null
+        orgnameComboValue: null,
+        rec:{
+            fullname: '',
+            idnumber:'',
+            code:'',
+            shiftName:'',
+            orgnameComboValue:[],
+            positionid_link:[],
+
+        }
 
     }
 })
