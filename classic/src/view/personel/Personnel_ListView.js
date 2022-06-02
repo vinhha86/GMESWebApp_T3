@@ -126,13 +126,15 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             displayField: 'name',
             valueField: 'id',
             queryMode: 'local',
+            multiSelect: true,
             anyMatch: true,
             listeners: {
-                select: 'onFilterOrgnameFilter',
+                // select: 'onFilterOrgnameFilter',
+                select: 'onComboBoxFilter'
             },
             bind: {
                 store: '{ListOrgStore}',
-                value: '{orgnameComboValue}',
+                value: '{rec.orgnameComboValue}',
             },
             matchFieldWidth: false,
             listConfig: {
@@ -175,7 +177,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
     },
     {
         text: 'Chức vụ',
-        dataIndex: 'position',
+        dataIndex: 'positionName',
       //  flex: 1,
         width:270,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -193,13 +195,14 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             displayField: 'name',
             valueField: 'id',
             queryMode: 'local',
+            multiSelect: true,
             anyMatch: true,
             listeners: {
-                select: 'onPositionFilter',
+                select: 'onComboBoxFilter',
             },
             bind: {
                 store: '{Personnel_Position_Store}',
-                value: '{positionid_link}',
+                value: '{rec.positionid_link}',
             },
             matchFieldWidth: false,
             listConfig: {
