@@ -98,16 +98,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.PContract_POListByMon
                         return value;
                     },
                 }, 
-                {
-                    text: 'PT đóng gói',
-                    dataIndex: 'phuongThucDongGoi',
-                    flex: 1,
-                    hideable: false,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                        metaData.tdAttr = 'data-qtip="' + value + '"';
-                        return value;
-                    },
-                }, 
+                // {
+                //     text: 'PT đóng gói',
+                //     dataIndex: 'packingnotice',
+                //     flex: 1,
+                //     hideable: false,
+                //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                //         metaData.tdAttr = 'data-qtip="' + value + '"';
+                //         return value;
+                //     },
+                // }, 
                 
                 // {
                 //     text: 'Ship Mode',
