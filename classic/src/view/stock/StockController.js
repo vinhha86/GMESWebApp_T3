@@ -35,6 +35,7 @@ Ext.define('GSmartApp.view.stock.StockController', {
         var donHang = searchObj.donHang == null ? null : searchObj.donHang.trim();
         var maSP = searchObj.maSP == null ? null : searchObj.maSP.trim();
         //
+        console.log("Okeeeeeeeeee")
         if(isNaN(maHangId)) maHangId = null;
         //
         me.setLoading("Đang tải dữ liệu");
@@ -153,5 +154,13 @@ Ext.define('GSmartApp.view.stock.StockController', {
             filters.remove(this.ValueFilterFieldmaHangId);
             this.ValueFilterFieldmaHangId = null;
         }
-    }
+    },
+    onEnterSearch: function(textfield, e, eOpts){
+        console.log("1111");
+        var m = this;
+        if(e.getKey() == e.ENTER) {
+            m.onloadPage();
+        }
+    },
+    
 })

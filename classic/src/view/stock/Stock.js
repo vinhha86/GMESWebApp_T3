@@ -129,10 +129,9 @@ Ext.define('GSmartApp.view.stock.Stock', {
                         value: '{searchObj.maSP}'
                     },
                     enableKeyEvents: true,
-                    // listeners: {
-                    //     keyup: 'onMaSPFilterKeyup',
-                    //     buffer: 500
-                    // }
+                    listeners: {
+                        keypress: 'onEnterSearch'
+                    }
                 },
                 {
                     xtype: 'button',
@@ -141,6 +140,10 @@ Ext.define('GSmartApp.view.stock.Stock', {
                     iconCls: 'x-fa fa-search',
                     tooltip: 'Tìm kiếm',
                     margin: '5 1 5 1',
+                    // enableKeyEvents : true,
+                    // listeners: {
+                    //     keypress: 'onEnterSearch'
+                    // }
                 },
                 {
                     xtype: 'button',
