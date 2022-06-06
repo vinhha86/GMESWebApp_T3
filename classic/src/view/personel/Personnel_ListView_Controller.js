@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         var viewmodel = this.getViewModel();
         var storeLoaiNV = viewmodel.getStore('PersonnelTypeStore');
         storeLoaiNV.loadStore();
-        viewmodel.set('personnel.status',0);
+        viewmodel.set('personnel.status', 0);
     },
     control: {
         '#btnThemMoi_Personnel': {
@@ -50,8 +50,8 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         '#cmbLoaiNV': {
             select: 'onSelectLoaiNV'
         },
-        '#cmbTinhTrang':{
-            select:'onSelectTangThai'
+        '#cmbTinhTrang': {
+            select: 'onSelectTangThai'
         },
         '#splbtn_ThemCa': {
             click: 'onThemCaLamViec'
@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         var me = this;
         var viewmodel = this.getViewModel();
         params.orgmanagerid_link = viewmodel.get('donvi.id');
-        
+
         var today = new Date();
         var yyyy = today.getFullYear();
         var mm = today.getMonth() + 1; // Months start at 0!
@@ -88,7 +88,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         today = dd + '/' + mm + '/' + yyyy;
         var fileName = "BaoCaoNhanSu" + today + ".xlsx";
         // params.orgmanagerid_link = 8;
-        
+
         GSmartApp.Ajax.post('/api/v1/report/NhanSu_Excel', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
@@ -120,40 +120,40 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                 }
             })
     },
-    onSelectTangThai:function(){
+    onSelectTangThai: function () {
         var viewmodel = this.getViewModel();
         var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
         var orgid_link = viewmodel.get('donvi.id');
-        var status= viewmodel.get('personnel.status');
+        var status = viewmodel.get('personnel.status');
         var StorePersonel = viewmodel.getStore('Personnel_Store');
         console.log(status);
-        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,status);
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link, status);
     },
-    onTrangThaiTriggerClick:function(){
+    onTrangThaiTriggerClick: function () {
         var viewmodel = this.getViewModel();
         viewmodel.set('personnel.status', null);
         var orgid_link = viewmodel.get('donvi.id');
         var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
         var StorePersonel = viewmodel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,3);
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link, 3);
     },
     onLoaiNVTriggerClick: function () {
         var viewmodel = this.getViewModel();
         viewmodel.set('personnel.personnel_typeid_link', 0);
         var orgid_link = viewmodel.get('donvi.id');
-        var status= viewmodel.get('personnel.status');
+        var status = viewmodel.get('personnel.status');
         var StorePersonel = viewmodel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(orgid_link, 0,status);
+        StorePersonel.loadStore_byOrg(orgid_link, 0, status);
     },
     onSelectLoaiNV: function (cmb, rec, e) {
         var viewmodel = this.getViewModel();
         var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
         var orgid_link = viewmodel.get('donvi.id');
-        var status= viewmodel.get('personnel.status');
+        var status = viewmodel.get('personnel.status');
         var StorePersonel = viewmodel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,status);
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link, status);
     },
-    
+
     onPositionFilter: function (cmb, rec, e) {
         var viewModel = this.getViewModel();
         var filterValue = rec.get('id');
@@ -264,9 +264,9 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         var viewmodel = this.getViewModel();
         var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
         var orgid_link = viewmodel.get('donvi.id');
-        var status= viewmodel.get('personnel.status');
+        var status = viewmodel.get('personnel.status');
         var StorePersonel = viewmodel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,status);
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link, status);
     },
     onUpload: function () {
         var viewmodel = this.getViewModel();
