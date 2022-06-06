@@ -24,15 +24,24 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.ProductSewingCost_ViewContr
         '#btnUploadTmpFile': {
             click: 'onbtnUploadTmpFile'
         },
-        '#fileUpload': {
-            change: 'onSelectFileUpload'
-        },
+        // '#fileUpload': {
+        //     change: 'onSelectFileUpload'
+        // },
         //
         '#btnDetailNew': {
             click: 'onDetailNew'
         },
         '#cmbSanPham': {
             select: 'onChangeProduct'
+        },
+        '#btn_Upload': {
+            click: 'onUpload'
+        },
+        '#fileUpload': {
+            change: 'onSelect'
+        },
+        '#ProductSewingCostInfoBtn_Download': {
+            click: 'onDownload_TemplateProductSewingCost'
         },
     },
     listen: {
@@ -46,6 +55,106 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.ProductSewingCost_ViewContr
         //         'DashboardMer_ProgressStore_Done': 'onDashboardMer_ProgressStore_Done'
         //     }
         // }
+    },
+    onDownload_TemplateProductSewingCost: function () {
+        var me = this;
+        var params = new Object();
+        GSmartApp.Ajax.post('/api/v1/report/download_temp_productsewingcost', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray("Template_DSCongdoan.xlsx", response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
+    onUpload: function () {
+        var viewModel = this.getViewModel();
+        
+        var pcontract = viewModel.get('PContract');
+        var pcontractid_link = pcontract.id;
+        var productid_link = viewModel.get('IdProduct');
+
+        if(productid_link == null || productid_link == 0){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Bạn cần chọn một sản phẩm trong danh sách",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+            });
+            return;
+        }
+        var me = this.getView();
+        me.down('#fileUpload').fileInputEl.dom.click();
+    },
+    onSelect: function (m, value) {
+        var grid = this.getView();
+        var viewModel = this.getViewModel();
+
+        var pcontract = viewModel.get('PContract');
+        var pcontractid_link = pcontract.id;
+        var productid_link = viewModel.get('IdProduct');
+        var data = new FormData();
+        data.append('file', m.fileInputEl.dom.files[0]);
+        data.append('pcontractid_link', pcontractid_link);
+        data.append('productid_link', productid_link);
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/upload/personnelUploadProductSewingCost', data, 3 * 60 * 1000,
+            function (success, response, options) {
+                grid.setLoading(false);
+                m.reset();
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Upload Thành Công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                    //load lai ds
+                    var ProductSewingCostStore = viewModel.getStore('ProductSewingCostStore');
+                    ProductSewingCostStore.load();
+                    // var store = viewModel.getStore('Personnel_Store');
+                    // store.load();
+                }
+            })
     },
 
     onPContractView_ChangeToTab_ProductSewingCost: function(){

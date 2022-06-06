@@ -103,12 +103,12 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_Info', {
                 // width: '100%',
                 items: [{
                     xtype: 'textfield',
-                    fieldLabel: "Mã lệnh",
+                    fieldLabel: "Mã SP",
                     // allowBlank: false,
-                    itemId: 'pordercode',
+                    itemId: 'handoverProductBuyercode',
                     blankText: 'Không được để trống',
                     bind: {
-                        value: '{pordercode}'
+                        value: '{currentRec.handoverProductBuyercode}'
                     },
                     labelWidth: 80,
                     flex: 1,

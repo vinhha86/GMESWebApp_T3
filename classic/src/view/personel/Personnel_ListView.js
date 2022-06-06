@@ -126,13 +126,15 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             displayField: 'name',
             valueField: 'id',
             queryMode: 'local',
+            multiSelect: true,
             anyMatch: true,
             listeners: {
-                select: 'onFilterOrgnameFilter',
+                // select: 'onFilterOrgnameFilter',
+                select: 'onComboBoxFilter'
             },
             bind: {
                 store: '{ListOrgStore}',
-                value: '{orgnameComboValue}',
+                value: '{rec.orgnameComboValue}',
             },
             matchFieldWidth: false,
             listConfig: {
@@ -175,7 +177,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
     },
     {
         text: 'Chức vụ',
-        dataIndex: 'position',
+        dataIndex: 'positionName',
       //  flex: 1,
         width:270,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -193,13 +195,14 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             displayField: 'name',
             valueField: 'id',
             queryMode: 'local',
+            multiSelect: true,
             anyMatch: true,
             listeners: {
-                select: 'onPositionFilter',
+                select: 'onComboBoxFilter',
             },
             bind: {
                 store: '{Personnel_Position_Store}',
-                value: '{positionid_link}',
+                value: '{rec.positionid_link}',
             },
             matchFieldWidth: false,
             listConfig: {
@@ -277,6 +280,15 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             margin: 3
         },
         {
+            xtype: 'filefield',
+            buttonOnly: true,
+            hidden: true,
+            itemId: 'fileUploadSalary',
+            width: 35,
+            height: 32,
+            margin: 3
+        },
+        {
             xtype: 'button',
             margin: 3,
             text: 'Upload',
@@ -297,6 +309,11 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
                     text: 'Upload file thông tin ngân hàng',
                     iconCls: 'x-fa fa-upload',
                 },
+                {
+                    itemId: 'salaryInfoBtn_Upload',
+                    text: 'Upload file thông tin lương',
+                    iconCls: 'x-fa fa-upload',
+                },
             ],
         },
         {
@@ -307,7 +324,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             menu: [
                 {
                     itemId: 'splbtn_Download',
-                    text: 'Tải file mẫu danh sách nhân viên',
+                    text: 'NTải file mẫu danh sách nhân viên',
                     iconCls: 'x-fa fa-download',
                 },
                 {
@@ -318,6 +335,11 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
                 {
                     itemId: 'bankInfoBtn_Download',
                     text: 'Tải file mẫu thông tin ngân hàng',
+                    iconCls: 'x-fa fa-download',
+                },
+                {
+                    itemId: 'bankInfoBtn_Download',
+                    text: 'Tải file mẫu thông tin lương',
                     iconCls: 'x-fa fa-download',
                 },
             ],
@@ -341,6 +363,14 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         //     hidden: true,
         // },
         {
+            xtype: 'button',
+            margin: 1,
+            text: 'Download file nhân viên',
+            iconCls: 'x-fa fa-plus',
+            itemId: 'splbtn_DownloadFileNhanVien',
+            tooltip: 'Download file nhân viên',
+        }
+        ,{
             xtype: 'button',
             margin: 1,
             text: 'Ca MĐ',
