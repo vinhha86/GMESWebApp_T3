@@ -186,7 +186,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     }
                 },
                 renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    metaData.tdCls = 'po_linekh';
+                    if(!record.data.ismap) metaData.tdCls = 'po_linekh';
+                    else {metaData.tdCls = 'po_offer';}
                     metaData.tdAttr = 'data-qtip="' + value + '"';
                     return value;
                 },

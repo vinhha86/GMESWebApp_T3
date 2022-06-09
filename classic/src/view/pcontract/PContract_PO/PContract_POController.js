@@ -266,6 +266,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         // var rec = grid.getStore().getAt(rowIndex);
         var viewModel = this.getViewModel();
         var obj_copy = viewModel.get('obj_copy');
+        var sourceView = 'PContract_PO_chao_gia';
 
         var form = Ext.create('Ext.window.Window', {
             closable: false,

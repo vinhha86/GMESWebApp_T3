@@ -18,7 +18,6 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_ProductSearch', {
         mode: 'SINGLE'
     },
     bind:{
-
         // store:'{POrder_ListStore}'
         store:'{ProductStore}'
     },

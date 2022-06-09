@@ -27,7 +27,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         var ShipModeStore = viewmodel.getStore('ShipModeStore');
         ShipModeStore.loadStore();
         ShipModeStore.getSorters().add('name');
-
+        
+        var ListOrgStore_PhanXuong = viewmodel.getStore('ListOrgStore_PhanXuong');
+        ListOrgStore_PhanXuong.loadStore(13);
         var QCOrgStore = viewmodel.getStore('QCOrgStore');
         QCOrgStore.GetOrgByTypeId(16);
         var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
@@ -142,10 +144,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
             viewmodel.set('po.packingnotice', packingnotice);
 
             params.data = viewmodel.get('po');
+            console.log(params.data);
 
             params.data.po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
             params.data.exchangerate = viewmodel.get('po.exchangerate') == null ? 0 : parseFloat(viewmodel.get('po.exchangerate').toString().replace(/,/gi, ''));
             params.data.plan_productivity = viewmodel.get('po.plan_productivity') == null ? 0 : parseFloat(viewmodel.get('po.plan_productivity').toString().replace(/,/gi, ''));
+            params.data.orggrantid_link = viewmodel.get('po.orggrantid_link');
 
             if (params.data.pcontract_po_productivity != null) {
                 for (var i = 0; i < params.data.pcontract_po_productivity.length; i++) {

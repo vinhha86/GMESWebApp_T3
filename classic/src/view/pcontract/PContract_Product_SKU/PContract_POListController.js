@@ -39,6 +39,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     onSelectOffer: function (rowNode, record, expandRow, eOpts) {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
+        console.log(viewmodel);
         viewmodel.set('po_selection', record);
 
         grid.setLoading('Đang tải dữ liệu');
@@ -53,7 +54,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
+                        console.log(response.data);
                         record.set('sub_po_confirm', response.data);
+                        console.log(record);
+                        console.log(record.sub_po_confirm);
                     }
                     else {
                         Ext.Msg.show({
@@ -386,6 +390,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 var storeSku = viewModel.getStore('PContractSKUStore');
                 storeSku.removeAll();
                 storeSku.loadStoreByPO_and_Product(record.get('id'), rec.data.id);
+                console.log(record);
             }
         });
     },
@@ -493,6 +498,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     },
     onEdit: function (rec, isHidden_req) {
         var viewModel = this.getViewModel();
+        var sourceView = 'PContract_POList'; 
+        console.log("Done");
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,
@@ -518,7 +525,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         isHidden_req: isHidden_req == null ? false : true,
                         productid_link: rec.get('productid_link'),
                         width_PContract_PO_Edit_Porder_Req: 0,
-                        pcontractid_link: viewModel.get('PContract.id')
+                        pcontractid_link: viewModel.get('PContract.id'),
+
+                        sourceView: sourceView,
                     }
                 }
             }]
@@ -665,6 +674,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         me.onChangeMer(record);
                     }
                 },
+
                 '-',
                 {
                     text: 'Thêm PO Line',
@@ -699,6 +709,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     },
                     // hidden: type == 1 ? false : true
                 },
+
                 {
                     text: 'Upload File PO Line FOB(Excel)',
                     itemId: 'btnUpload_PO_FOB',
@@ -754,6 +765,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         me.onTongHopBaoCao(record);
                     }
                 },
+                // {
+                //     text: 'Chuyển phân xưởng',
+                //     itemId: 'btnChuyenPX',
+                //     separator: true,
+                //     margin: '10 0 0',
+                //     iconCls: 'x-fa fa-industry',
+                //     handler: function () {
+                //         // var record = this.parentMenu.record;
+                //         me.onChuyenPhanXuong(record);
+                //     }
+                // },
             ]
         });
         // HERE IS THE MAIN CHANGE
@@ -887,6 +909,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
 
 			})
     },
+    // onChuyenPhanXuong: function (record){
+    //     console.log(record);
+    //     var form = Ext.create('Ext.window.Window', {
+    //         height: 400,
+    //         width: 500,
+    //         closable: true,
+    //         resizable: false,
+    //         modal: true,
+    //         border: false,
+    //         title: 'Chuyển phân xưởng',
+    //         closeAction: 'destroy',
+    //         bodyStyle: 'background-color: transparent',
+    //         layout: {
+    //             type: 'fit', // fit screen for window
+    //             padding: 5
+    //         },
+    //         items: [{
+    //             xtype: 'PContract_ChuyenPhanXuongView',
+    //             viewModel: {
+    //                 // type: 'HandoverDetailPorderSearchViewModel',
+    //                 data: {
+    //                     // pordercode: pordercode,
+    //                     // granttoorgid_link: granttoorgid_link,
+    //                     // viewId: viewId
+    //                 }
+    //             }
+    //         }]
+    //     });
+    //     form.show();
+    // },
+
     saveByteArray: function (reportName, byte) {
         var me = this;
         byte = this.base64ToArrayBuffer(byte);

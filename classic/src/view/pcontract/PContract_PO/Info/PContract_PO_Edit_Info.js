@@ -752,7 +752,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                     }    
                                 }
                             ]
-                        }, 
+                        },
                     ]
                 },
                 {
@@ -790,6 +790,38 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         //     margin: 1,
                         //     flex: 1,
                         // }
+                    ]
+                },
+                {
+                    xtype: 'container',
+                    layout: 'hbox',
+                    width: '100%',
+                    items:[
+                        {
+                    
+                            xtype: 'combobox',
+                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                            fieldStyle: 'font-size:11px;',
+                            fieldLabel: 'Chuyển đơn vị:',
+                            labelAlign: 'left',
+                            labelWidth: 78,
+                            flex:1,
+                            margin: 1,
+                            displayField: 'name',
+                            valueField: 'id',
+                            queryMode: 'local',
+                            anyMatch: true,
+                            editable: true,
+                            bind: {
+                                store: '{ListOrgStore_PhanXuong}',
+                                value: '{po.orggrantid_link}',
+                                hidden: '{isComboPhanXuongHidden}'
+                            }
+                        },
+                        {
+                            flex: 1,
+                        }
+                        
                     ]
                 },
             ]
