@@ -342,7 +342,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             iconCls: 'x-fa fa-search',
             itemId: 'btnTimKiem2',
         },
-
     ]
     },
     ]
